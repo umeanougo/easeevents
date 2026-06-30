@@ -1,0 +1,1049 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Moventory Operations Dashboard Proposal</title>
+    <style>
+      @page {
+        size: Letter;
+        margin: 0;
+      }
+
+      :root {
+        --bg: #071121;
+        --bg-2: #0b1628;
+        --surface: #111c31;
+        --surface-2: #16233b;
+        --border: rgba(148, 163, 184, 0.22);
+        --text: #f7fbff;
+        --muted: #aab8c9;
+        --blue: #67a8ff;
+        --blue-2: #9dccff;
+        --green: #86aa5b;
+        --green-dark: #345021;
+        --gold: #f4ce7a;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        background: #0a1220;
+        color: var(--text);
+        font-family:
+          "Century Gothic", "Apple Gothic", "Avenir Next", Avenir, Futura,
+          "Trebuchet MS", Arial, sans-serif;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .page {
+        position: relative;
+        width: 8.5in;
+        height: 11in;
+        overflow: hidden;
+        padding: 0.55in;
+        page-break-after: always;
+        background:
+          radial-gradient(
+            ellipse 75% 50% at 50% -10%,
+            rgba(103, 168, 255, 0.2),
+            transparent 62%
+          ),
+          radial-gradient(
+            ellipse 60% 45% at 92% 18%,
+            rgba(134, 170, 91, 0.18),
+            transparent 68%
+          ),
+          linear-gradient(180deg, var(--bg-2), var(--bg));
+      }
+
+      .page::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: 0.23;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        background-size: 0.42in 0.42in;
+        pointer-events: none;
+      }
+
+      .content {
+        position: relative;
+        z-index: 1;
+        height: 100%;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        font-size: 49px;
+        line-height: 0.98;
+        letter-spacing: 0;
+        font-weight: 700;
+      }
+
+      h2 {
+        font-size: 29px;
+        line-height: 1.08;
+        font-weight: 700;
+      }
+
+      h3 {
+        font-size: 15px;
+        line-height: 1.2;
+        font-weight: 700;
+      }
+
+      p,
+      li {
+        color: var(--muted);
+        font-size: 12.5px;
+        line-height: 1.55;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 18px;
+      }
+
+      li {
+        margin: 0 0 6px;
+      }
+
+      .eyebrow {
+        color: var(--blue);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .muted {
+        color: var(--muted);
+      }
+
+      .blue {
+        color: var(--blue);
+      }
+
+      .green {
+        color: var(--green);
+      }
+
+      .gold {
+        color: var(--gold);
+      }
+
+      .topbar,
+      .footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .topbar {
+        margin-bottom: 34px;
+      }
+
+      .footer {
+        position: absolute;
+        left: 0.55in;
+        right: 0.55in;
+        bottom: 0.32in;
+        color: rgba(226, 232, 240, 0.55);
+        font-size: 9.5px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--text);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .brand img {
+        width: 34px;
+        height: 34px;
+        border-radius: 9px;
+        object-fit: cover;
+      }
+
+      .mov-logo {
+        width: 54px;
+        height: 54px;
+        object-fit: contain;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        min-height: 26px;
+        padding: 6px 12px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: rgba(17, 28, 49, 0.72);
+        color: var(--muted);
+        font-size: 10.5px;
+      }
+
+      .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 999px;
+        background: var(--blue);
+        box-shadow: 0 0 16px rgba(103, 168, 255, 0.8);
+      }
+
+      .card {
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        background:
+          radial-gradient(
+            ellipse 80% 80% at 100% 0%,
+            rgba(103, 168, 255, 0.1),
+            transparent 55%
+          ),
+          linear-gradient(180deg, rgba(22, 35, 59, 0.86), rgba(10, 19, 35, 0.82));
+        padding: 22px;
+      }
+
+      .card.green-card {
+        background:
+          radial-gradient(
+            ellipse 80% 80% at 100% 0%,
+            rgba(134, 170, 91, 0.18),
+            transparent 55%
+          ),
+          linear-gradient(180deg, rgba(22, 35, 59, 0.86), rgba(10, 19, 35, 0.82));
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+
+      .metric {
+        border: 1px solid var(--border);
+        border-radius: 15px;
+        background: rgba(7, 17, 33, 0.66);
+        padding: 16px;
+        min-height: 92px;
+      }
+
+      .metric .value {
+        color: var(--text);
+        font-size: 27px;
+        line-height: 1;
+        font-weight: 700;
+      }
+
+      .metric .label {
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 10px;
+        line-height: 1.35;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .section-title {
+        margin-bottom: 18px;
+      }
+
+      .lead {
+        font-size: 16px;
+        line-height: 1.48;
+        color: #dbe7f6;
+      }
+
+      .small {
+        font-size: 10.5px;
+        line-height: 1.45;
+      }
+
+      .table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: rgba(7, 17, 33, 0.66);
+      }
+
+      .table th,
+      .table td {
+        padding: 10px 12px;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+        vertical-align: top;
+        font-size: 10.5px;
+        line-height: 1.35;
+      }
+
+      .table th {
+        color: var(--text);
+        text-align: left;
+        background: rgba(255, 255, 255, 0.045);
+        font-size: 9.5px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .table tr:last-child td {
+        border-bottom: 0;
+      }
+
+      .image-frame {
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        overflow: hidden;
+        background: rgba(7, 17, 33, 0.78);
+        box-shadow: 0 22px 80px rgba(0, 0, 0, 0.22);
+      }
+
+      .image-frame img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .caption {
+        padding: 10px 14px 12px;
+        color: var(--muted);
+        font-size: 10px;
+        line-height: 1.35;
+        border-top: 1px solid rgba(148, 163, 184, 0.18);
+      }
+
+      .step {
+        display: grid;
+        grid-template-columns: 32px 1fr;
+        gap: 11px;
+        margin-bottom: 14px;
+      }
+
+      .num {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        border: 1px solid rgba(103, 168, 255, 0.46);
+        border-radius: 999px;
+        color: var(--blue);
+        font-size: 12px;
+        font-weight: 700;
+        background: rgba(103, 168, 255, 0.08);
+      }
+
+      .divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(103, 168, 255, 0.55), transparent);
+        margin: 22px 0;
+      }
+
+      .cover {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .cover-main {
+        flex: 1;
+        display: grid;
+        grid-template-columns: 1fr 178px;
+        gap: 36px;
+        align-items: center;
+      }
+
+      .cover-mark {
+        border: 1px solid rgba(134, 170, 91, 0.35);
+        border-radius: 34px;
+        padding: 28px;
+        background:
+          radial-gradient(
+            ellipse 90% 80% at 50% 0%,
+            rgba(134, 170, 91, 0.2),
+            transparent 62%
+          ),
+          rgba(7, 17, 33, 0.52);
+      }
+
+      .cover-mark img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+      }
+
+      .hero-title {
+        max-width: 520px;
+      }
+
+      .hero-copy {
+        margin-top: 24px;
+        max-width: 515px;
+      }
+
+      .cover-metrics {
+        margin-top: 34px;
+      }
+
+      .tight {
+        margin-top: 8px;
+      }
+
+      .mt-12 {
+        margin-top: 12px;
+      }
+
+      .mt-16 {
+        margin-top: 16px;
+      }
+
+      .mt-20 {
+        margin-top: 20px;
+      }
+
+      .mt-24 {
+        margin-top: 24px;
+      }
+
+      .mt-30 {
+        margin-top: 30px;
+      }
+
+      .logo-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .logo-row img {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        object-fit: cover;
+      }
+
+      .scope-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 16px;
+      }
+
+      .split-figure {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .mini-label {
+        color: var(--blue);
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="page cover">
+      <div class="content cover">
+        <div class="topbar">
+          <div class="brand">
+            <img src="assets/easeops-logo.png" alt="EaseOps logo" />
+            <span>EaseOps</span>
+          </div>
+          <div class="logo-row">
+            <span class="pill"><span class="dot"></span>Phase 1 MVP Proposal</span>
+            <img class="mov-logo" src="assets/moventory-logo.png" alt="Moventory logo" />
+          </div>
+        </div>
+
+        <div class="cover-main">
+          <div>
+            <div class="eyebrow">Prepared for Moventory</div>
+            <h1 class="hero-title">
+              Multi-store Shopify visibility for
+              <span class="blue">fulfillment operations.</span>
+            </h1>
+            <p class="lead hero-copy">
+              A lean operational MVP to centralize order visibility across Moventory's Shopify
+              brand partners, reduce store-switching, and validate the foundation for a future
+              African warehouse management platform.
+            </p>
+            <div class="grid-3 cover-metrics">
+              <div class="metric">
+                <div class="value">3-5</div>
+                <div class="label">Initial Shopify stores</div>
+              </div>
+              <div class="metric">
+                <div class="value">4 wks</div>
+                <div class="label">Estimated Phase 1 build</div>
+              </div>
+              <div class="metric">
+                <div class="value">$2.75k-$3.75k</div>
+                <div class="label">CAD MVP investment</div>
+              </div>
+            </div>
+          </div>
+          <div class="cover-mark">
+            <img src="assets/moventory-logo.png" alt="Moventory logo" />
+          </div>
+        </div>
+        <div class="footer">
+          <span>EaseOps Solutions Inc.</span>
+          <span>May 29, 2026</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="content">
+        <div class="topbar">
+          <div class="brand">
+            <img src="assets/easeops-logo.png" alt="EaseOps logo" />
+            <span>EaseOps</span>
+          </div>
+          <span class="pill">Moventory Operations Dashboard</span>
+        </div>
+        <div class="section-title">
+          <div class="eyebrow">Executive Summary</div>
+          <h2>Shopify is built for one merchant. Moventory operates across many.</h2>
+        </div>
+        <p class="lead">
+          The core issue is not fulfillment execution itself. It is fragmented operational
+          visibility across storefronts. Moventory acts as a centralized fulfillment partner for
+          multiple brands, but each Shopify store still behaves like a separate operational silo.
+        </p>
+
+        <div class="grid-2 mt-24">
+          <div class="card">
+            <h3>Current bottleneck</h3>
+            <p class="mt-12">
+              The team manually checks individual Shopify stores throughout the day to catch new
+              orders, returns, delivery needs, and fulfillment exceptions. This works at a small
+              scale, but it becomes increasingly fragile as more brands join.
+            </p>
+          </div>
+          <div class="card green-card">
+            <h3>Recommended move</h3>
+            <p class="mt-12">
+              Build a lean operational visibility MVP before investing in heavy platform
+              infrastructure. The MVP should validate workflow behavior, reduce daily context
+              switching, and establish the technical foundation for future orchestration.
+            </p>
+          </div>
+        </div>
+
+        <div class="card mt-20">
+          <div class="eyebrow">Proof of Concept Already Validated</div>
+          <div class="grid-2 mt-12">
+            <ul>
+              <li>Shopify Admin API integration</li>
+              <li>OAuth-authenticated order retrieval</li>
+              <li>Consolidated dashboard structure</li>
+            </ul>
+            <ul>
+              <li>Customer, fulfillment, and line-item visibility</li>
+              <li>Centralized order queue foundation</li>
+              <li>Future-ready structure for additional workflows</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="grid-3">
+          <div class="metric">
+            <div class="value">15</div>
+            <div class="label">Brand clients in the operating model</div>
+          </div>
+          <div class="metric">
+            <div class="value">~90%</div>
+            <div class="label">Currently Shopify-led or Shopify relevant</div>
+          </div>
+          <div class="metric">
+            <div class="value">24/day</div>
+            <div class="label">Manual store checks at 8 stores x 3 checks</div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <span>Moventory Phase 1 MVP Proposal</span>
+          <span>2</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="content">
+        <div class="topbar">
+          <div class="brand">
+            <img src="assets/easeops-logo.png" alt="EaseOps logo" />
+            <span>EaseOps</span>
+          </div>
+          <span class="pill">Current State</span>
+        </div>
+        <div class="section-title">
+          <div class="eyebrow">Operating Problem</div>
+          <h2>Manual store-checking is becoming the scalability bottleneck.</h2>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <h3>What happens today</h3>
+            <ul class="mt-12">
+              <li>Each Shopify store is checked separately multiple times per day.</li>
+              <li>Warehouse checks and Shopify checks are split across different places.</li>
+              <li>New orders, returns, and delivery issues require manual attention.</li>
+              <li>Moventory must remember which stores have and have not been checked.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Why it breaks as volume grows</h3>
+            <ul class="mt-12">
+              <li>A next-day order can be missed until it is already late.</li>
+              <li>Inventory counts can drift between Shopify and the physical warehouse.</li>
+              <li>Shopify notifications route to the merchant, not necessarily Moventory.</li>
+              <li>Moving from 8 Shopify brands toward 14+ makes the current approach untenable.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card green-card mt-20">
+          <div class="eyebrow">Strategic Principle</div>
+          <p class="lead mt-12">
+            Phase 1 should not attempt to replicate Shopify Admin. The highest-leverage move is to
+            create an operational queue that shows what Moventory needs to act on across stores.
+          </p>
+        </div>
+
+        <table class="table mt-20">
+          <thead>
+            <tr>
+              <th>Risk</th>
+              <th>Operational impact</th>
+              <th>Phase 1 response</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Missed new orders</td>
+              <td>Late fulfillment, especially for next-day shipping.</td>
+              <td>Unified queue sorted by newest order first.</td>
+            </tr>
+            <tr>
+              <td>Store-switching fatigue</td>
+              <td>Manual checks compound as new brands onboard.</td>
+              <td>One dashboard across initial Shopify stores.</td>
+            </tr>
+            <tr>
+              <td>Inventory uncertainty</td>
+              <td>Physical warehouse and store data can diverge.</td>
+              <td>Foundation for inventory verification workflows.</td>
+            </tr>
+            <tr>
+              <td>Notification gaps</td>
+              <td>Shopify alerts are not optimized for Moventory's multi-brand role.</td>
+              <td>Future notification and exception layer.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="footer">
+          <span>Moventory Phase 1 MVP Proposal</span>
+          <span>3</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="content">
+        <div class="topbar">
+          <div class="brand">
+            <img src="assets/easeops-logo.png" alt="EaseOps logo" />
+            <span>EaseOps</span>
+          </div>
+          <span class="pill">Phase 1 MVP</span>
+        </div>
+        <div class="section-title">
+          <div class="eyebrow">Proposed Build</div>
+          <h2>Operational Visibility MVP: one queue for multi-store Shopify orders.</h2>
+        </div>
+
+        <div class="scope-grid">
+          <div class="card">
+            <h3>Phase 1 goal</h3>
+            <p class="mt-12">
+              Eliminate the need to manually log into multiple Shopify stores throughout the day
+              just to know whether there are orders requiring attention.
+            </p>
+            <div class="grid-2 mt-16">
+              <ul>
+                <li>Consolidated order dashboard</li>
+                <li>3-5 Shopify integrations initially</li>
+                <li>Centralized operational queue</li>
+                <li>Customer and fulfillment visibility</li>
+              </ul>
+              <ul>
+                <li>Store/client source column</li>
+                <li>Basic filtering and search</li>
+                <li>Operational status foundation</li>
+                <li>Deployment and documentation</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card green-card">
+            <h3>Recommended stack</h3>
+            <ul class="mt-12">
+              <li>Python + Streamlit</li>
+              <li>Shopify GraphQL Admin API</li>
+              <li>Render or Streamlit Cloud hosting</li>
+              <li>Lightweight architecture that can graduate into a fuller platform</li>
+            </ul>
+            <p class="small mt-16">
+              Estimated hosting: CAD $10-$30/month depending on usage.
+            </p>
+          </div>
+        </div>
+
+        <div class="image-frame mt-20">
+          <img src="assets/dashboard-screenshot.png" alt="Moventory dashboard prototype" />
+          <div class="caption">
+            Prototype dashboard: consolidated order queue with store, order, customer, financial
+            status, fulfillment status, and line-item visibility.
+          </div>
+        </div>
+
+        <div class="footer">
+          <span>Moventory Phase 1 MVP Proposal</span>
+          <span>4</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="content">
+        <div class="topbar">
+          <div class="brand">
+            <img src="assets/easeops-logo.png" alt="EaseOps logo" />
+            <span>EaseOps</span>
+          </div>
+          <span class="pill">Prototype Evidence</span>
+        </div>
+        <div class="section-title">
+          <div class="eyebrow">Technical Validation</div>
+          <h2>The first technical risk has already been reduced.</h2>
+        </div>
+        <p class="lead">
+          The proof of concept intentionally focused on validating the operational bottleneck and
+          Shopify data path before scaling architecture decisions.
+        </p>
+
+        <div class="split-figure mt-20">
+          <div class="image-frame">
+            <img src="assets/shopify-orders-view.png" alt="Shopify order source view" />
+            <div class="caption">
+              Source environment: Shopify order data with fulfillment and payment statuses.
+            </div>
+          </div>
+          <div class="image-frame">
+            <img src="assets/dashboard-screenshot.png" alt="Moventory dashboard prototype" />
+            <div class="caption">
+              Target operational view: a centralized queue that can expand from one store to
+              multiple stores.
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-3 mt-20">
+          <div class="metric">
+            <div class="value">API</div>
+            <div class="label">Shopify Admin data retrieval validated</div>
+          </div>
+          <div class="metric">
+            <div class="value">Queue</div>
+            <div class="label">Operational order table structure validated</div>
+          </div>
+          <div class="metric">
+            <div class="value">Next</div>
+            <div class="label">Connect 3-5 real brand stores</div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <span>Moventory Phase 1 MVP Proposal</span>
+          <span>5</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="content">
+        <div class="topbar">
+          <div class="brand">
+            <img src="assets/easeops-logo.png" alt="EaseOps logo" />
+            <span>EaseOps</span>
+          </div>
+          <span class="pill">ROI Model</span>
+        </div>
+        <div class="section-title">
+          <div class="eyebrow">Illustrative Business Case</div>
+          <h2>A small visibility layer can remove a meaningful amount of daily coordination.</h2>
+        </div>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Input</th>
+              <th>Low case</th>
+              <th>High case</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Manual checks per day</td>
+              <td>24</td>
+              <td>24</td>
+              <td>8 stores x 3 checks/day from discovery notes.</td>
+            </tr>
+            <tr>
+              <td>Minutes per check</td>
+              <td>5</td>
+              <td>8</td>
+              <td>Includes login, search, review, and context switching.</td>
+            </tr>
+            <tr>
+              <td>Hours per month</td>
+              <td>43</td>
+              <td>69</td>
+              <td>Assumes 5 operating days/week and 4.33 weeks/month.</td>
+            </tr>
+            <tr>
+              <td>Loaded hourly value</td>
+              <td>$30 CAD</td>
+              <td>$45 CAD</td>
+              <td>Illustrative operating labor/opportunity cost.</td>
+            </tr>
+            <tr>
+              <td>Monthly labor value</td>
+              <td>$1,300 CAD</td>
+              <td>$3,100 CAD</td>
+              <td>Before factoring missed orders, late shipments, or client trust.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="grid-2 mt-20">
+          <div class="card">
+            <h3>Operational upside</h3>
+            <ul class="mt-12">
+              <li>Fewer missed next-day orders.</li>
+              <li>Less manual context switching across stores.</li>
+              <li>Faster awareness of fulfillment exceptions.</li>
+              <li>Cleaner onboarding path as new brands join.</li>
+            </ul>
+          </div>
+          <div class="card green-card">
+            <h3>Potential payback</h3>
+            <p class="mt-12">
+              With a Phase 1 build cost of CAD $2,750-$3,750, the labor-only payback can plausibly
+              fall in the 1-3 month range, depending on actual check time, staff cost, and adoption.
+            </p>
+            <p class="small mt-12">
+              This is an illustrative model, not a guarantee. The MVP should measure actual usage
+              and workflow savings once deployed.
+            </p>
+          </div>
+        </div>
+
+        <div class="footer">
+          <span>Moventory Phase 1 MVP Proposal</span>
+          <span>6</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="content">
+        <div class="topbar">
+          <div class="brand">
+            <img src="assets/easeops-logo.png" alt="EaseOps logo" />
+            <span>EaseOps</span>
+          </div>
+          <span class="pill">Roadmap</span>
+        </div>
+        <div class="section-title">
+          <div class="eyebrow">Phased Expansion</div>
+          <h2>Start with visibility. Then add workflow. Then scale into a platform.</h2>
+        </div>
+
+        <div class="card">
+          <div class="step">
+            <div class="num">1</div>
+            <div>
+              <h3>Operational Visibility MVP</h3>
+              <p class="tight">
+                Consolidated order dashboard, multi-store integrations, basic search/filtering,
+                store source column, order queue, deployment, and documentation.
+              </p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <div>
+              <h3>Workflow & Fulfillment Layer</h3>
+              <p class="tight">
+                Inventory verification, shipping label orchestration, returns workflows,
+                notifications, statuses, assignments, audit trail, and additional integrations.
+              </p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <div>
+              <h3>Scalable Platform Infrastructure</h3>
+              <p class="tight">
+                Full OAuth onboarding, production-grade infrastructure, user roles, expanded
+                integrations, inventory reconciliation, and potential client-facing capabilities.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2 mt-20">
+          <div class="card green-card">
+            <div class="eyebrow">Long-Term Opportunity</div>
+            <h3 class="mt-12">Africa's warehouse management layer</h3>
+            <p class="mt-12">
+              Moventory's operating model points toward a niche WMS and fulfillment orchestration
+              layer for African and diaspora brands selling through Shopify and related commerce
+              platforms.
+            </p>
+          </div>
+          <div class="card">
+            <div class="eyebrow">Scope Discipline</div>
+            <h3 class="mt-12">Do not overbuild too early</h3>
+            <p class="mt-12">
+              The fastest path to clarity is to validate order visibility and internal behavior
+              first, then graduate successful workflows into a more robust SaaS-style platform.
+            </p>
+          </div>
+        </div>
+
+        <div class="footer">
+          <span>Moventory Phase 1 MVP Proposal</span>
+          <span>7</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="content">
+        <div class="topbar">
+          <div class="brand">
+            <img src="assets/easeops-logo.png" alt="EaseOps logo" />
+            <span>EaseOps</span>
+          </div>
+          <span class="pill">Investment & Next Steps</span>
+        </div>
+        <div class="section-title">
+          <div class="eyebrow">Commercial Recommendation</div>
+          <h2>Build the smallest useful system that proves the operating model.</h2>
+        </div>
+
+        <div class="grid-3">
+          <div class="metric">
+            <div class="value">4 weeks</div>
+            <div class="label">Estimated implementation timeline</div>
+          </div>
+          <div class="metric">
+            <div class="value">$2,750-$3,750</div>
+            <div class="label">CAD Phase 1 build range</div>
+          </div>
+          <div class="metric">
+            <div class="value">$10-$30</div>
+            <div class="label">Estimated monthly hosting</div>
+          </div>
+        </div>
+
+        <div class="grid-2 mt-20">
+          <div class="card">
+            <h3>Ongoing support options</h3>
+            <ul class="mt-12">
+              <li>Basic Maintenance Retainer: CAD $250-$500/month.</li>
+              <li>Operational Support & Enhancements: CAD $750-$1,500/month.</li>
+              <li>Support can cover store onboarding, Shopify API changes, feature improvements,
+                monitoring, reporting, and workflow refinements.</li>
+            </ul>
+          </div>
+          <div class="card green-card">
+            <h3>Immediate next steps</h3>
+            <ul class="mt-12">
+              <li>Confirm the initial 3-5 Shopify stores for Phase 1.</li>
+              <li>Confirm required fields and status workflow for the order queue.</li>
+              <li>Provide Shopify access path for production integration.</li>
+              <li>Approve Phase 1 scope, timeline, and commercial range.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card mt-20">
+          <div class="eyebrow">Proposed Success Criteria</div>
+          <div class="grid-2 mt-12">
+            <ul>
+              <li>Moventory can see new orders from connected stores in one view.</li>
+              <li>The team can identify store source, customer, items, and fulfillment status.</li>
+            </ul>
+            <ul>
+              <li>The dashboard reduces manual Shopify checks during daily operations.</li>
+              <li>The MVP creates a clear foundation for inventory and label workflows.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="grid-2">
+          <div>
+            <div class="eyebrow">Prepared by</div>
+            <p class="lead mt-12">EaseOps Solutions Inc.</p>
+            <p class="small">Systems, automation, and analytics for operators.</p>
+          </div>
+          <div>
+            <div class="eyebrow">Contact</div>
+            <p class="lead mt-12">hello@easeops.ca</p>
+            <p class="small">Proposal for Moventory Phase 1 MVP.</p>
+          </div>
+        </div>
+
+        <div class="footer">
+          <span>Moventory Phase 1 MVP Proposal</span>
+          <span>8</span>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

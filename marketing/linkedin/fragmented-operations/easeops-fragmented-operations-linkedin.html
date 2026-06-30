@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1200, initial-scale=1" />
+    <title>EaseOps LinkedIn Graphic - Fragmented Operations</title>
+    <style>
+      :root {
+        --navy: #071327;
+        --navy-2: #111f3d;
+        --blue: #59a9ff;
+        --blue-2: #d9ecff;
+        --teal: #12a99a;
+        --gold: #e7b950;
+        --ink: #101827;
+        --muted: #667085;
+        --line: #dfe7f2;
+        --soft: #f4f8fd;
+        --white: #ffffff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        width: 1200px;
+        height: 1200px;
+        background: var(--white);
+        font-family: "Century Gothic", "Apple Gothic", "Avenir Next", Avenir, Futura, "Trebuchet MS", Arial, sans-serif;
+        color: var(--ink);
+      }
+
+      body {
+        display: grid;
+        place-items: center;
+      }
+
+      .poster {
+        position: relative;
+        width: 1200px;
+        height: 1200px;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 83% 16%, rgba(89, 169, 255, 0.17), transparent 260px),
+          radial-gradient(circle at 9% 82%, rgba(18, 169, 154, 0.12), transparent 280px),
+          linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+      }
+
+      .poster::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(to right, rgba(7, 19, 39, 0.045) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(7, 19, 39, 0.045) 1px, transparent 1px);
+        background-size: 72px 72px;
+        mask-image: radial-gradient(circle at 50% 45%, black 0%, rgba(0, 0, 0, 0.4) 45%, transparent 78%);
+        pointer-events: none;
+      }
+
+      .brand {
+        position: absolute;
+        top: 64px;
+        left: 72px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .brand img {
+        width: 62px;
+        height: 62px;
+        border-radius: 15px;
+        box-shadow: 0 18px 35px rgba(7, 19, 39, 0.16);
+      }
+
+      .brand-name {
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: 0;
+        color: var(--navy);
+      }
+
+      .brand-line {
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 17px;
+        font-weight: 600;
+      }
+
+      .micro-dashboard {
+        position: absolute;
+        top: 62px;
+        right: 72px;
+        width: 302px;
+        height: 118px;
+        border: 1px solid rgba(89, 169, 255, 0.22);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.72);
+        box-shadow: 0 22px 50px rgba(7, 19, 39, 0.08);
+        padding: 18px;
+      }
+
+      .micro-dashboard span {
+        display: block;
+        height: 10px;
+        border-radius: 999px;
+        background: #e8eef7;
+        margin-bottom: 14px;
+      }
+
+      .micro-dashboard span:nth-child(1) {
+        width: 78px;
+        background: var(--blue);
+      }
+
+      .micro-dashboard span:nth-child(2) {
+        width: 210px;
+      }
+
+      .micro-dashboard span:nth-child(3) {
+        width: 164px;
+      }
+
+      .micro-dashboard span:nth-child(4) {
+        width: 244px;
+        background: #dbe8f8;
+      }
+
+      .headline {
+        position: absolute;
+        top: 176px;
+        left: 72px;
+        width: 760px;
+      }
+
+      .eyebrow {
+        color: var(--blue);
+        font-size: 18px;
+        font-weight: 800;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 18px 0 0;
+        color: var(--navy);
+        font-size: 56px;
+        line-height: 1.02;
+        letter-spacing: 0;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .comparison {
+        position: absolute;
+        top: 396px;
+        left: 72px;
+        right: 72px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+
+      .column {
+        position: relative;
+        min-height: 394px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.82);
+        box-shadow: 0 26px 60px rgba(7, 19, 39, 0.08);
+        padding: 34px 38px 32px;
+      }
+
+      .column::after {
+        content: "";
+        position: absolute;
+        z-index: 0;
+        right: 32px;
+        top: 30px;
+        width: 120px;
+        height: 76px;
+        border-radius: 8px;
+        border: 1px solid rgba(7, 19, 39, 0.08);
+        background:
+          linear-gradient(90deg, transparent 23px, rgba(7, 19, 39, 0.08) 24px, transparent 25px),
+          linear-gradient(180deg, transparent 21px, rgba(7, 19, 39, 0.08) 22px, transparent 23px),
+          rgba(244, 248, 253, 0.8);
+        opacity: 0.58;
+      }
+
+      .after::after {
+        background:
+          linear-gradient(90deg, transparent 23px, rgba(89, 169, 255, 0.18) 24px, transparent 25px),
+          linear-gradient(180deg, transparent 21px, rgba(89, 169, 255, 0.18) 22px, transparent 23px),
+          rgba(217, 236, 255, 0.46);
+      }
+
+      .label {
+        display: inline-flex;
+        position: relative;
+        z-index: 1;
+        align-items: center;
+        gap: 12px;
+        color: var(--navy);
+        font-size: 24px;
+        font-weight: 800;
+        letter-spacing: 2px;
+      }
+
+      .label::before {
+        content: "";
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--gold);
+        box-shadow: 0 0 0 7px rgba(231, 185, 80, 0.16);
+      }
+
+      .after .label::before {
+        background: var(--blue);
+        box-shadow: 0 0 0 7px rgba(89, 169, 255, 0.18);
+      }
+
+      ul {
+        list-style: none;
+        position: relative;
+        z-index: 1;
+        margin: 28px 0 0;
+        padding: 0;
+        display: grid;
+        gap: 20px;
+      }
+
+      li {
+        position: relative;
+        padding-left: 42px;
+        max-width: 390px;
+        color: #263142;
+        font-size: 26px;
+        line-height: 1.18;
+        font-weight: 700;
+        letter-spacing: 0;
+      }
+
+      li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 7px;
+        width: 19px;
+        height: 19px;
+        border-radius: 50%;
+        border: 3px solid rgba(231, 185, 80, 0.76);
+        background: #fff8e2;
+      }
+
+      .after li::before {
+        border-color: var(--blue);
+        background: var(--blue-2);
+        box-shadow: inset 0 0 0 5px #ffffff;
+      }
+
+      .flow {
+        position: absolute;
+        top: 516px;
+        left: 50%;
+        width: 54px;
+        height: 188px;
+        transform: translateX(-50%);
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        pointer-events: none;
+      }
+
+      .flow-line {
+        position: absolute;
+        top: 18px;
+        bottom: 18px;
+        width: 2px;
+        background: linear-gradient(180deg, rgba(231, 185, 80, 0.38), rgba(89, 169, 255, 0.7));
+      }
+
+      .flow-dot {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: #ffffff;
+        border: 3px solid var(--blue);
+        box-shadow: 0 10px 22px rgba(89, 169, 255, 0.2);
+      }
+
+      .flow-arrow {
+        width: 54px;
+        height: 54px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: var(--navy);
+        color: #ffffff;
+        font-size: 34px;
+        font-weight: 700;
+        box-shadow: 0 20px 40px rgba(7, 19, 39, 0.2);
+      }
+
+      .callout {
+        position: absolute;
+        left: 72px;
+        right: 72px;
+        bottom: 134px;
+        min-height: 182px;
+        border-radius: 8px;
+        background: var(--navy);
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 42px 54px;
+        box-shadow: 0 34px 70px rgba(7, 19, 39, 0.24);
+        overflow: hidden;
+      }
+
+      .callout::after {
+        content: "";
+        position: absolute;
+        right: 52px;
+        top: 28px;
+        width: 220px;
+        height: 126px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background:
+          linear-gradient(90deg, transparent 38px, rgba(255, 255, 255, 0.12) 39px, transparent 40px),
+          linear-gradient(180deg, transparent 30px, rgba(255, 255, 255, 0.12) 31px, transparent 32px);
+        opacity: 0.36;
+      }
+
+      .quote {
+        position: relative;
+        z-index: 1;
+        font-size: 47px;
+        line-height: 1.05;
+        font-weight: 800;
+        letter-spacing: 0;
+      }
+
+      .quote .accent {
+        color: var(--blue);
+      }
+
+      .nodes {
+        position: relative;
+        z-index: 1;
+        width: 250px;
+        height: 128px;
+      }
+
+      .node {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--blue);
+        box-shadow: 0 0 0 8px rgba(89, 169, 255, 0.16);
+      }
+
+      .node:nth-child(1) {
+        top: 6px;
+        left: 24px;
+      }
+
+      .node:nth-child(2) {
+        top: 48px;
+        left: 112px;
+        background: var(--teal);
+      }
+
+      .node:nth-child(3) {
+        top: 92px;
+        left: 204px;
+      }
+
+      .nodes svg {
+        position: absolute;
+        inset: 0;
+      }
+
+      .footer {
+        position: absolute;
+        left: 72px;
+        right: 72px;
+        bottom: 54px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: var(--navy);
+      }
+
+      .footer-brand {
+        font-size: 24px;
+        font-weight: 800;
+      }
+
+      .footer-line {
+        font-size: 22px;
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      .signature-mark {
+        width: 54px;
+        height: 6px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--blue), var(--teal));
+      }
+    </style>
+  </head>
+  <body>
+    <main class="poster" aria-label="The cost of fragmented operations">
+      <section class="brand">
+        <img src="../../../src/assets/logo-easeops.png" alt="EaseOps logo" />
+        <div>
+          <div class="brand-name">EaseOps Solutions</div>
+          <div class="brand-line">Systems. Automation. Analytics.</div>
+        </div>
+      </section>
+
+      <aside class="micro-dashboard" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </aside>
+
+      <section class="headline">
+        <div class="eyebrow">Operational clarity</div>
+        <h1>The cost of fragmented operations</h1>
+      </section>
+
+      <section class="comparison">
+        <article class="column before">
+          <div class="label">BEFORE</div>
+          <ul>
+            <li>Multiple storefronts</li>
+            <li>Manual monitoring</li>
+            <li>Constant context switching</li>
+            <li>Spreadsheet reporting</li>
+            <li>Operational blind spots</li>
+          </ul>
+        </article>
+
+        <article class="column after">
+          <div class="label">AFTER</div>
+          <ul>
+            <li>Unified operational visibility</li>
+            <li>Centralized workflows</li>
+            <li>Real-time awareness</li>
+            <li>Automated reporting</li>
+            <li>Faster decision making</li>
+          </ul>
+        </article>
+      </section>
+
+      <div class="flow" aria-hidden="true">
+        <div class="flow-line"></div>
+        <div class="flow-dot"></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-dot"></div>
+      </div>
+
+      <section class="callout">
+        <div class="quote">
+          "The problem isn't execution.<br />
+          <span class="accent">It's visibility."</span>
+        </div>
+        <div class="nodes" aria-hidden="true">
+          <svg viewBox="0 0 250 128" fill="none">
+            <path d="M34 17 C72 18 82 54 112 58 C149 63 164 96 214 102" stroke="rgba(255,255,255,.38)" stroke-width="5" stroke-linecap="round" />
+          </svg>
+          <span class="node"></span>
+          <span class="node"></span>
+          <span class="node"></span>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div>
+          <div class="footer-brand">EaseOps Solutions</div>
+          <div class="footer-line">Systems. Automation. Analytics.</div>
+        </div>
+        <div class="signature-mark" aria-hidden="true"></div>
+      </footer>
+    </main>
+  </body>
+</html>

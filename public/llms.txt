@@ -1,0 +1,14 @@
+# EaseOps
+
+> EaseOps designs workflow automation, system integrations, dashboards, and clean websites for growing operators who need clearer operations.
+
+EaseOps Solutions is a Canadian operations systems partner. We help operators replace scattered tools and manual workflows with simple, useful systems: connected data, clear workflows, real-time visibility, and documented handoffs.
+
+## Pages
+
+- [Home](/): Overview of EaseOps services, sample operating system, mini case study, process, and contact options.
+- [Book an ops audit](/consultation): Request a focused 30-minute operations audit.
+
+## Optional
+
+- [Unsubscribe](/unsubscribe): Email unsubscribe page.
